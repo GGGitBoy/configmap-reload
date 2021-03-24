@@ -160,12 +160,18 @@ func setSuccessMetrict(h string, begun time.Time) {
 }
 
 func isValidEvent(event fsnotify.Event) bool {
+	log.Printf("event.Op&fsnotify.Create:  %+v\n", event.Op&fsnotify.Create)
+	log.Printf("fsnotify.Create:  %+v\n", fsnotify.Create)
 	if event.Op&fsnotify.Create != fsnotify.Create {
 		return false
 	}
+
+	log.Printf("filepath.Base(event.Name):  %+v\n", filepath.Base(event.Name))
 	if filepath.Base(event.Name) != "..data" {
 		return false
 	}
+
+	log.Println("i am true")
 	return true
 }
 
